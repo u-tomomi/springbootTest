@@ -7,7 +7,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
 @RestController
-public cimport ss HelloController {
+public class HelloController {
 
 	@RequestMapping("/")
 	public String index() {
