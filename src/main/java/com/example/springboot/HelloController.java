@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.lang.IllegalStateException;
 
 @RestController
 public class HelloController {
@@ -18,5 +19,15 @@ public class HelloController {
 		System.out.println(formattedDate);
 		return "Greetings from Spring Boot!";
 	}
+
+		@RequestMapping("/hello")
+		public String hello() {
+			Date date=new Date();
+			DateFormat dateFormat=new SimpleDateFormat("yyyy-MM-dd HH:mm");
+			String formattedDate=dateFormat.format(date);
+
+			System.out.println(formattedDate);
+			throw new IllegalStateException("Something is wrong");
+		}
 
 }
