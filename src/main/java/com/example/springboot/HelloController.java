@@ -4,8 +4,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -14,11 +12,11 @@ public class HelloController {
 
 	@RequestMapping("/")
 	public String index() {
-		System.out.println("start");
-	    SecurityContext securityContext = SecurityContextHolder.getContext();
-		System.out.println("securityContext");
-	    LoginPrincipal loginPrincipal = (LoginPrincipal) securityContext.getAuthentication().getPrincipal();
-		System.out.println("loginPrincipal");
+//		System.out.println("start");
+//	    SecurityContext securityContext = SecurityContextHolder.getContext();
+//		System.out.println("securityContext");
+//	    LoginPrincipal loginPrincipal = (LoginPrincipal) securityContext.getAuthentication().getPrincipal();
+//		System.out.println("loginPrincipal");
 		
 		Date date=new Date();
 		DateFormat dateFormat=new SimpleDateFormat("yyyy-MM-dd HH:mm");
