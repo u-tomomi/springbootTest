@@ -22,6 +22,7 @@ public class HelloController {
 		String formattedDate=dateFormat.format(date);
 
 		System.out.println(formattedDate);
+		System.out.println(loginPrincipal.getUsername());
 		return "Greetings from Spring Boot!";
 	}
 
