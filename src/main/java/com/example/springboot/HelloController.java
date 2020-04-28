@@ -14,8 +14,11 @@ public class HelloController {
 
 	@RequestMapping("/")
 	public String index() {
+		System.out.println("start");
 	    SecurityContext securityContext = SecurityContextHolder.getContext();
+		System.out.println("securityContext");
 	    LoginPrincipal loginPrincipal = (LoginPrincipal) securityContext.getAuthentication().getPrincipal();
+		System.out.println("loginPrincipal");
 		
 		Date date=new Date();
 		DateFormat dateFormat=new SimpleDateFormat("yyyy-MM-dd HH:mm");
