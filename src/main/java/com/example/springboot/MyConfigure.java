@@ -19,8 +19,14 @@ public class MyConfigure extends WebSecurityConfigurerAdapter {
   // ----------------------------------------
 
   // <<< ※WebSecurityConfigurerAdapterには、configureのオーバーロードメソッドが複数あるので要注意 >>>
-  @Override protected void configure(AuthenticationManagerBuilder auth) throws Exception { super.configure(auth); }
-  @Override public    void configure(WebSecurity                  web)  throws Exception { super.configure(web); }
+  @Override protected void configure(AuthenticationManagerBuilder auth) throws Exception { 
+	  super.configure(auth); 
+	  System.out.println("auth configure");
+	  }
+  @Override public    void configure(WebSecurity                  web)  throws Exception { 
+	  super.configure(web); 
+	  System.out.println("web configure");
+	}
   //---
 
   @Override
