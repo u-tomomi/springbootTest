@@ -12,7 +12,7 @@ public class HelloController {
 
 	@RequestMapping("/")
 	public String index() {
-//		System.out.println("start");
+		System.out.println("start");
 //	    SecurityContext securityContext = SecurityContextHolder.getContext();
 //		System.out.println("securityContext");
 //	    LoginPrincipal loginPrincipal = (LoginPrincipal) securityContext.getAuthentication().getPrincipal();

@@ -25,6 +25,7 @@ public class MyConfigure extends WebSecurityConfigurerAdapter {
 
   @Override
   protected void configure(HttpSecurity http) throws Exception {
+	System.out.println("MyConfigure configure");
     // Basic認証の設定
     http.httpBasic().realmName("My sample realm");
     // 認証が必要となるリクエストの設定
