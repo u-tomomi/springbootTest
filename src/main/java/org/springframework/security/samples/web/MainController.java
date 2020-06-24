@@ -27,26 +27,31 @@ public class MainController {
 
 	@RequestMapping("/")
 	public String root() {
+		System.out.println("root");
 		return "redirect:/index";
 	}
 
 	@RequestMapping("/index")
 	public String index() {
+		System.out.println("index");
 		return "index";
 	}
 
 	@RequestMapping("/user/index")
 	public String userIndex() {
+		System.out.println("userIndex");
 		return "user/index";
 	}
 
 	@RequestMapping("/login")
 	public String login() {
+		System.out.println("login");
 		return "login";
 	}
 
 	@RequestMapping("/login-error")
 	public String loginError(Model model) {
+		System.out.println("loginError");
 		model.addAttribute("loginError", true);
 		return "login";
 	}
