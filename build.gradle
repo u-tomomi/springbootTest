@@ -36,10 +36,5 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
-
-    /* Spring Security 5 for Thymeleaf */
     implementation group: 'org.thymeleaf.extras', name: 'thymeleaf-extras-springsecurity5
-    compile "org.springframework.boot:spring-boot-starter-web",
-            "org.springframework.boot:spring-boot-starter-thymeleaf",
-            "org.thymeleaf.extras:thymeleaf-extras-springsecurity4:2.1.2.RELEASE"
 }
