@@ -8,6 +8,10 @@ plugins {
 apply plugin: 'io.spring.dependency-management'
 apply plugin: 'eclipse'
 
+springBoot {
+    mainClassName = 'org.springframework.security.samples.HelloWorldApplication'
+}
+
 group = 'com.example.boot'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
