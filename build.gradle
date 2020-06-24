@@ -1,20 +1,35 @@
-apply from: BOOT_SAMPLE_GRADLE
+plugins {
+    id 'org.springframework.boot' version '2.2.5.RELEASE'
+    id 'java'
+    id "io.freefair.lombok" version "4.1.6"
+    id "org.flywaydb.flyway" version "6.1.4"
+}
 
-springBoot {
-    mainClass = 'org.springframework.security.samples.HelloWorldApplication'
+apply plugin: 'io.spring.dependency-management'
+apply plugin: 'eclipse'
+
+group = 'com.example.boot'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+configurations {
+    developmentOnly
+    runtimeClasspath {
+        extendsFrom developmentOnly
+    }
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+    flywayMigration
 }
 
 repositories {
-	mavenCentral()
+    mavenCentral()
 }
+
 
 dependencies {
     compile "org.springframework.boot:spring-boot-starter-web",
             "org.springframework.boot:spring-boot-starter-thymeleaf",
-            "org.thymeleaf.extras:thymeleaf-extras-springsecurity4:2.1.2.RELEASE",
-            project(":spring-security-config"),
-            project(":spring-security-web")
-
-    testCompile "org.springframework.boot:spring-boot-starter-test",
-            project(":spring-security-test")
+            "org.thymeleaf.extras:thymeleaf-extras-springsecurity4:2.1.2.RELEASE"
 }
