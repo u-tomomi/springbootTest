@@ -29,6 +29,8 @@ repositories {
 
 
 dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
     compile "org.springframework.boot:spring-boot-starter-web",
             "org.springframework.boot:spring-boot-starter-thymeleaf",
             "org.thymeleaf.extras:thymeleaf-extras-springsecurity4:2.1.2.RELEASE"
