@@ -6,6 +6,20 @@
         <link rel="stylesheet" href="/css/main.css" th:href="@{/css/main.css}" />
     </head>
     <body>
+    
+<div class="nav-collapse collapse"
+		th:with="currentUser=${#httpServletRequest.userPrincipal?.principal}">
+	<div th:if="${currentUser != null}">
+			<form class="navbar-form pull-right" th:action="@{/logout}" method="post">
+					<input type="submit" value="Log out" />
+			</form>
+			<p id="un" class="navbar-text pull-right" th:text="${currentUser.username}">
+				sample_user
+			</p>
+	</div>
+	<ul class="nav">
+	</ul>
+</div>
         <div th:fragment="logout" class="logout" sec:authorize="isAuthenticated()">
             Logged in user: <span sec:authentication="name"></span> |
             Roles: <span sec:authentication="principal.authorities"></span>
