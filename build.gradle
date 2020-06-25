@@ -12,6 +12,18 @@ springBoot {
     mainClassName = 'org.springframework.security.samples.HelloWorldApplication'
 }
 
+
+configurations {
+    developmentOnly
+    runtimeClasspath {
+        extendsFrom developmentOnly
+    }
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+    flywayMigration
+}
+
 repositories {
     mavenCentral()
 }
