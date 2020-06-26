@@ -28,6 +28,9 @@ import javax.servlet.http.HttpSession;
 import com.maxmind.geoip2.DatabaseReader;
 import com.maxmind.geoip2.model.CityResponse;
 
+import lombok.extern.slf4j.Slf4j;
+import sample.mvc.LoginController;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
@@ -44,6 +47,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
  *
  */
 // tag::class[]
+@Slf4j
 @Component
 @Order(Ordered.HIGHEST_PRECEDENCE + 101)
 public class SessionDetailsFilter extends OncePerRequestFilter {
@@ -61,17 +65,21 @@ public class SessionDetailsFilter extends OncePerRequestFilter {
 			FilterChain chain) throws IOException, ServletException {
 		chain.doFilter(request, response);
 
-		System.out.println("SessionDetailsFilter.doFilterInternal");
+		
+		log.info("SessionDetailsFilter.doFilterInternal");
 		HttpSession session = request.getSession(false);
 		if (session != null) {
 			String remoteAddr = getRemoteAddress(request);
 			String geoLocation = getGeoLocation(remoteAddr);
 
+			log.info(geoLocation);
 			SessionDetails details = new SessionDetails();
 			details.setAccessType(request.getHeader("User-Agent"));
 			details.setLocation(remoteAddr + " " + geoLocation);
 
 			session.setAttribute("SESSION_DETAILS", details);
+		} else {
+			log.info("no session");
 		}
 	}
 	// end::dofilterinternal[]

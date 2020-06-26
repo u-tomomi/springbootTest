@@ -26,9 +26,12 @@ import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * @author Joe Grandja
  */
+@Slf4j
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Bean
@@ -43,6 +46,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	// @formatter:off
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
+		log.info("SecurityConfig.configure");
 		http.formLogin().loginPage("/login").permitAll().and().authorizeRequests()
 				.antMatchers("/resources/**", "/webjars/**").permitAll().anyRequest().authenticated()
 				.and().logout().permitAll()
@@ -66,6 +70,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	// @formatter:off
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+		log.info("SecurityConfig.configureGlobal");
 		auth
 			.inMemoryAuthentication()
 				.withUser("user2").password("{noop}password").roles("USER");

@@ -19,17 +19,20 @@ package sample.mvc;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * Returns view for log in page
  *
  * @author Rob Winch
  */
+@Slf4j
 @Controller
 public class LoginController {
 
 	@RequestMapping("/login")
 	public String login() {
-		System.out.println("LoginController.login");
+		log.info("LoginController.login");
 		return "login";
 	}
 }

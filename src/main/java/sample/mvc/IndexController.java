@@ -29,12 +29,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * Controller for sending the user to the login view.
  *
  * @author Rob Winch
  *
  */
+@Slf4j
 @Controller
 public class IndexController {
 	// tag::findbyusername[]
@@ -43,6 +46,7 @@ public class IndexController {
 
 	@RequestMapping("/")
 	public String index(Principal principal, Model model) {
+		log.info("IndexController.index");
 		Collection<? extends Session> usersSessions = this.sessions
 				.findByIndexNameAndIndexValue(
 						FindByIndexNameSessionRepository.PRINCIPAL_NAME_INDEX_NAME,
@@ -56,6 +60,7 @@ public class IndexController {
 	@RequestMapping(value = "/sessions/{sessionIdToDelete}", method = RequestMethod.DELETE)
 	public String removeSession(Principal principal,
 			@PathVariable String sessionIdToDelete) {
+		log.info("IndexController.removeSession");
 		Set<String> usersSessionIds = this.sessions.findByIndexNameAndIndexValue(
 				FindByIndexNameSessionRepository.PRINCIPAL_NAME_INDEX_NAME,
 				principal.getName()).keySet();
