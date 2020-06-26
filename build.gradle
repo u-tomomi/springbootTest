@@ -24,5 +24,9 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-redis'
     implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
     implementation 'org.springframework.session:spring-session-data-redis'
-    
+    implementation 'org.apache.httpcomponents:httpclient'
+    implementation 'org.webjars:bootstrap:4.5.0'
+    implementation 'org.webjars:html5shiv:3.7.3'
+    implementation 'org.webjars:webjars-locator:0.40'
+    implementation 'com.maxmind.geoip2:geoip2:2.14.0'
 }
