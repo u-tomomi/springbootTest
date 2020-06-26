@@ -18,7 +18,7 @@
 				<th>Information</th>
 				<th>Terminate</th>
 			</tr>
-			<tr th:each="s : ${sessions}" th:with="details=${session.getAttribute('SESSION_DETAILS')}">
+			<tr th:each="s : ${sessions}" th:with="details=${#session.getAttribute('SESSION_DETAILS')}">
 				<td th:text="${s.id.substring(30)}"></td>
 				<td th:text="${details.location}"></td>
 				<td th:text="${#dates.format(new java.util.Date(s.creationTime),'dd/MMM/yyyy HH:mm:ss')}"></td>
