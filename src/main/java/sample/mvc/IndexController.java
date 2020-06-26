@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package samples.mvc;
+package sample.mvc;
 
 import java.security.Principal;
 import java.util.Collection;

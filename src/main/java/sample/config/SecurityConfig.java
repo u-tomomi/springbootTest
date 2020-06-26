@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package samples.config;
+package sample.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -43,16 +43,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	// @formatter:off
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-					
-		http
-				.authorizeRequests()
-					.antMatchers("/css/**", "/index").permitAll()
-					.antMatchers("/user/**").hasRole("USER")
-					.and()
-				.formLogin().loginPage("/login").failureUrl("/login-error")
+		http.formLogin().loginPage("/login").permitAll().and().authorizeRequests()
+				.antMatchers("/resources/**", "/webjars/**").permitAll().anyRequest().authenticated()
+				.and().logout().permitAll()
 				.and().sessionManagement((sessionManagement) -> sessionManagement
 						.maximumSessions(1)
 						.sessionRegistry(sessionRegistry()));	
+				;
+					
+//		http
+//				.authorizeRequests()
+//					.antMatchers("/css/**", "/index").permitAll()
+//					.antMatchers("/user/**").hasRole("USER")
+//					.and()
+//				.formLogin().loginPage("/login").failureUrl("/login-error")
+//				.and().sessionManagement((sessionManagement) -> sessionManagement
+//						.maximumSessions(1)
+//						.sessionRegistry(sessionRegistry()));	
 	}
 	// @formatter:on
 

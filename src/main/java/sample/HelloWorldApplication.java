@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2016 the original author or authors.
+ * Copyright 2012-2016 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,17 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package sample;
 
-package samples.config;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import org.springframework.context.annotation.Bean;
-import org.springframework.session.data.redis.config.ConfigureRedisAction;
-import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
+/**
+ * @author Joe Grandja
+ */
+@SpringBootApplication
+public class HelloWorldApplication {
 
-@EnableRedisHttpSession(maxInactiveIntervalInSeconds = 60)
-public class HttpSessionConfig {
-	@Bean
-    public ConfigureRedisAction configureRedisAction() {
-        return ConfigureRedisAction.NO_OP;
-    }
+	public static void main(String[] args) {
+		SpringApplication.run(HelloWorldApplication.class, args);
+		System.out.println("Let's inspect the beans provided by Spring Boot:");
+	}
+
+
 }

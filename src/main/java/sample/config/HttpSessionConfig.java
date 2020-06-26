@@ -14,21 +14,16 @@
  * limitations under the License.
  */
 
-package samples.mvc;
+package sample.config;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.context.annotation.Bean;
+import org.springframework.session.data.redis.config.ConfigureRedisAction;
+import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 
-/**
- * Returns view for log in page
- *
- * @author Rob Winch
- */
-@Controller
-public class LoginController {
-
-	@RequestMapping("/login")
-	public String login() {
-		return "login";
-	}
+@EnableRedisHttpSession(maxInactiveIntervalInSeconds = 60)
+public class HttpSessionConfig {
+	@Bean
+    public ConfigureRedisAction configureRedisAction() {
+        return ConfigureRedisAction.NO_OP;
+    }
 }

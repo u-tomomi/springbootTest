@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package samples.config;
+package sample.config;
 
 import java.io.InputStream;
 

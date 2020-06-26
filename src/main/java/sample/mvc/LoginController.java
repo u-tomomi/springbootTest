@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2016 the original author or authors.
+ * Copyright 2014-2016 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,21 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package samples;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+package sample.mvc;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
- * @author Joe Grandja
+ * Returns view for log in page
+ *
+ * @author Rob Winch
  */
-@SpringBootApplication
-public class HelloWorldApplication {
+@Controller
+public class LoginController {
 
-	public static void main(String[] args) {
-		SpringApplication.run(HelloWorldApplication.class, args);
-		System.out.println("Let's inspect the beans provided by Spring Boot:");
+	@RequestMapping("/login")
+	public String login() {
+		return "login";
 	}
-
-
 }
