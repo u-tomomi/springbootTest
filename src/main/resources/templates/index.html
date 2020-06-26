@@ -19,10 +19,10 @@
 				<th>Terminate</th>
 			</tr>
 			<tr th:each="s : ${sessions}">
-				<td th:text="${s.id.substring(30)}"></td>
+				<td th:text="${s.id}"></td>
 				<td></td>
-				<td th:text="${#dates.format(new java.util.Date(s.creationTime),'dd/MMM/yyyy HH:mm:ss')}"></td>
-				<td th:text="${#dates.format(new java.util.Date(s.lastAccessedTime),'dd/MMM/yyyy HH:mm:ss')}"></td>
+				<td th:text="${s.creationTime}"></td>
+				<td th:text="${s.lastAccessedTime}"></td>
 				<td></td>
 				<td>
 				</td>
