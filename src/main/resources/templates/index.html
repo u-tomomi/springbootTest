@@ -6,8 +6,7 @@
         <link rel="stylesheet" href="/css/main.css" th:href="@{/css/main.css}" />
     </head>
     <body>
-    
-        <div class="nav-collapse collapse"
+        <div th:fragment="logout" class="logout" sec:authorize="isAuthenticated()">
                 th:with="currentUser=${#httpServletRequest.userPrincipal?.principal}">
             <div th:if="${currentUser != null}">
                     <form class="navbar-form pull-right" th:action="@{/logout}" method="post">
