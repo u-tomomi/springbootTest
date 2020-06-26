@@ -1,4 +1,4 @@
-<html xmlns:th="https://www.thymeleaf.org" xmlns:layout="https://github.com/ultraq/thymeleaf-layout-dialect" layout:decorator="layout">
+<html xmlns:th="https://www.thymeleaf.org" xmlns:layout="https://github.com/ultraq/thymeleaf-layout-dialect" layout:decorate="~{layout}">
 <head>
 	<title>Secured Content</title>
 </head>
@@ -18,16 +18,18 @@
 				<th>Information</th>
 				<th>Terminate</th>
 			</tr>
-			<tr th:each="s : ${sessions}">
-				<td th:text="${s.id}"></td>
-				<td></td>
-				<td th:text="${s.creationTime}"></td>
-				<td th:text="${s.lastAccessedTime}"></td>
-				<td></td>
+			<tr th:each="sessionElement : ${sessions}" th:with="details=${sessionElement.getAttribute('SESSION_DETAILS')}">
+				<td th:text="${sessionElement.id.substring(30)}"></td>
+				<td th:text="${details?.location}"></td>
+				<td th:text="${#temporals.format(sessionElement.creationTime.atZone(T(java.time.ZoneId).systemDefault()),'dd/MMM/yyyy HH:mm:ss')}"></td>
+				<td th:text="${#temporals.format(sessionElement.lastAccessedTime.atZone(T(java.time.ZoneId).systemDefault()),'dd/MMM/yyyy HH:mm:ss')}"></td>
+				<td th:text="${details?.accessType}"></td>
 				<td>
+					<form th:action="@{'/sessions/' + ${sessionElement.id}}" th:method="post">
+						<input th:id="'terminate-' + ${sessionElement.id}" type="submit" value="Terminate" th:disabled="${sessionElement.id == #httpSession.id}"/>
+					</form>
 				</td>
 			</tr>
-
 		</table>
 	</div>
 </body>

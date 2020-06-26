@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2016 the original author or authors.
+ * Copyright 2014-2019 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,15 +21,13 @@ import java.util.Collection;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.session.Session;
 import org.springframework.session.FindByIndexNameSessionRepository;
+import org.springframework.session.Session;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * Controller for sending the user to the login view.
@@ -37,37 +35,29 @@ import lombok.extern.slf4j.Slf4j;
  * @author Rob Winch
  *
  */
-@Slf4j
 @Controller
 public class IndexController {
+
 	// tag::findbyusername[]
 	@Autowired
 	FindByIndexNameSessionRepository<? extends Session> sessions;
 
 	@RequestMapping("/")
 	public String index(Principal principal, Model model) {
-		log.info("IndexController.index");
-		Collection<? extends Session> usersSessions = this.sessions
-				.findByIndexNameAndIndexValue(
-						FindByIndexNameSessionRepository.PRINCIPAL_NAME_INDEX_NAME,
-						principal.getName())
-				.values();
+		Collection<? extends Session> usersSessions = this.sessions.findByPrincipalName(principal.getName()).values();
 		model.addAttribute("sessions", usersSessions);
 		return "index";
 	}
 	// end::findbyusername[]
 
-	@RequestMapping(value = "/sessions/{sessionIdToDelete}", method = RequestMethod.DELETE)
-	public String removeSession(Principal principal,
-			@PathVariable String sessionIdToDelete) {
-		log.info("IndexController.removeSession");
-		Set<String> usersSessionIds = this.sessions.findByIndexNameAndIndexValue(
-				FindByIndexNameSessionRepository.PRINCIPAL_NAME_INDEX_NAME,
-				principal.getName()).keySet();
+	@PostMapping("/sessions/{sessionIdToDelete}")
+	public String removeSession(Principal principal, @PathVariable String sessionIdToDelete) {
+		Set<String> usersSessionIds = this.sessions.findByPrincipalName(principal.getName()).keySet();
 		if (usersSessionIds.contains(sessionIdToDelete)) {
 			this.sessions.deleteById(sessionIdToDelete);
 		}
 
 		return "redirect:/";
 	}
+
 }

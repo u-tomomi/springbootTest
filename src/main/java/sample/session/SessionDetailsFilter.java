@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2016 the original author or authors.
+ * Copyright 2014-2019 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,9 +28,6 @@ import javax.servlet.http.HttpSession;
 import com.maxmind.geoip2.DatabaseReader;
 import com.maxmind.geoip2.model.CityResponse;
 
-import lombok.extern.slf4j.Slf4j;
-import sample.mvc.LoginController;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
@@ -47,10 +44,10 @@ import org.springframework.web.filter.OncePerRequestFilter;
  *
  */
 // tag::class[]
-@Slf4j
 @Component
 @Order(Ordered.HIGHEST_PRECEDENCE + 101)
 public class SessionDetailsFilter extends OncePerRequestFilter {
+
 	static final String UNKNOWN = "Unknown";
 
 	private DatabaseReader reader;
@@ -61,25 +58,21 @@ public class SessionDetailsFilter extends OncePerRequestFilter {
 	}
 
 	// tag::dofilterinternal[]
-	public void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
-			FilterChain chain) throws IOException, ServletException {
+	@Override
+	public void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
+			throws IOException, ServletException {
 		chain.doFilter(request, response);
 
-		
-		log.info("SessionDetailsFilter.doFilterInternal");
 		HttpSession session = request.getSession(false);
 		if (session != null) {
 			String remoteAddr = getRemoteAddress(request);
 			String geoLocation = getGeoLocation(remoteAddr);
 
-			log.info(geoLocation);
 			SessionDetails details = new SessionDetails();
 			details.setAccessType(request.getHeader("User-Agent"));
 			details.setLocation(remoteAddr + " " + geoLocation);
 
 			session.setAttribute("SESSION_DETAILS", details);
-		} else {
-			log.info("no session");
 		}
 	}
 	// end::dofilterinternal[]
@@ -100,7 +93,7 @@ public class SessionDetailsFilter extends OncePerRequestFilter {
 			}
 			return cityName + ", " + countryName;
 		}
-		catch (Exception e) {
+		catch (Exception ex) {
 			return UNKNOWN;
 
 		}
@@ -116,5 +109,6 @@ public class SessionDetailsFilter extends OncePerRequestFilter {
 		}
 		return remoteAddr;
 	}
+
 }
 // end::class[]
