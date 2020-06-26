@@ -8,7 +8,7 @@ apply plugin: 'io.spring.dependency-management'
 apply plugin: 'eclipse'
 
 springBoot {
-    mainClassName = 'samples.HelloWorldApplication'
+    mainClassName = 'sample.HelloWorldApplication'
 }
 
 
