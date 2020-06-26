@@ -18,6 +18,18 @@
 				<th>Information</th>
 				<th>Terminate</th>
 			</tr>
+			<tr th:each="session : ${sessions}" th:with="details=${#session.getAttribute('SESSION_DETAILS')}">
+				<td th:text="${session.id.substring(30)}"></td>
+				<td th:text="${details.location}"></td>
+				<td th:text="${#dates.format(new java.util.Date(session.creationTime),'dd/MMM/yyyy HH:mm:ss')}"></td>
+				<td th:text="${#dates.format(new java.util.Date(session.lastAccessedTime),'dd/MMM/yyyy HH:mm:ss')}"></td>
+				<td th:text="${details.accessType}"></td>
+				<td>
+					<form th:action="@{'/sessions/' + ${session.id}}" th:method="delete">
+						<input th:id="'terminate-' + ${session.id}" type="submit" value="Terminate" th:disabled="${session.id == #httpSession.id}"/>
+					</form>
+				</td>
+			</tr>
 		</table>
 	</div>
 </body>
