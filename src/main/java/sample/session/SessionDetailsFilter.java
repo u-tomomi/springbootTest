@@ -61,6 +61,7 @@ public class SessionDetailsFilter extends OncePerRequestFilter {
 			FilterChain chain) throws IOException, ServletException {
 		chain.doFilter(request, response);
 
+		System.out.println("SessionDetailsFilter.doFilterInternal");
 		HttpSession session = request.getSession(false);
 		if (session != null) {
 			String remoteAddr = getRemoteAddress(request);
