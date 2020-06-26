@@ -52,7 +52,6 @@ public class IndexController {
 						FindByIndexNameSessionRepository.PRINCIPAL_NAME_INDEX_NAME,
 						principal.getName())
 				.values();
-		log.info(usersSessions);
 		model.addAttribute("sessions", usersSessions);
 		return "index";
 	}
