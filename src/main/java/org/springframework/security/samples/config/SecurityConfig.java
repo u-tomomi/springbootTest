@@ -21,9 +21,10 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.session.SessionRegistry;
+import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.session.security.SpringSessionBackedSessionRegistry;
 
 /**
  * @author Joe Grandja
@@ -35,24 +36,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 	@Bean
-	public SpringSessionBackedSessionRegistry<S> sessionRegistry() {
-		return new SpringSessionBackedSessionRegistry<>(this.sessionRepository);
+	public SessionRegistry sessionRegistry() {
+		return new SessionRegistryImpl();
 	}
 	
 	// @formatter:off
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http
-		// other config goes here...
-		.sessionManagement((sessionManagement) -> sessionManagement
-			.maximumSessions(2)
-			.sessionRegistry(sessionRegistry());		
+					
 		http
 				.authorizeRequests()
 					.antMatchers("/css/**", "/index").permitAll()
 					.antMatchers("/user/**").hasRole("USER")
 					.and()
-				.formLogin().loginPage("/login").failureUrl("/login-error");
+				.formLogin().loginPage("/login").failureUrl("/login-error")
+				.and().sessionManagement((sessionManagement) -> sessionManagement
+						.maximumSessions(1)
+						.sessionRegistry(sessionRegistry()));	
 	}
 	// @formatter:on
 
