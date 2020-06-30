@@ -52,6 +52,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.and().logout().permitAll()
 				.and().sessionManagement((sessionManagement) -> sessionManagement
 						.maximumSessions(1)
+						.maxSessionsPreventsLogin(true)
 						.sessionRegistry(sessionRegistry()));	
 				;
 					
