@@ -20,7 +20,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.session.data.redis.config.ConfigureRedisAction;
 import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 
-@EnableRedisHttpSession(maxInactiveIntervalInSeconds = 300)
+@EnableRedisHttpSession(maxInactiveIntervalInSeconds = 60)
 public class HttpSessionConfig {
 	@Bean
     public ConfigureRedisAction configureRedisAction() {

@@ -51,7 +51,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/resources/**", "/webjars/**").permitAll().anyRequest().authenticated()
 				.and().logout().permitAll()
 				.and().sessionManagement((sessionManagement) -> sessionManagement
-						.maximumSessions(1)
+						.maximumSessions(5)
 						.maxSessionsPreventsLogin(true)
 						.sessionRegistry(sessionRegistry()));	
 				;
