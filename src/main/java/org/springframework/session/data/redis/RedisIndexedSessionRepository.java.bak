@@ -51,9 +51,6 @@ import org.springframework.session.events.SessionExpiredEvent;
 import org.springframework.session.web.http.SessionRepositoryFilter;
 import org.springframework.util.Assert;
 
-import lombok.extern.slf4j.Slf4j;
-import sample.mvc.IndexController;
-
 /**
  * <p>
  * A {@link org.springframework.session.SessionRepository} that is implemented using
@@ -249,7 +246,6 @@ import sample.mvc.IndexController;
  * @author Vedran Pavic
  * @since 2.2.0
  */
-@Slf4j
 public class RedisIndexedSessionRepository
 		implements FindByIndexNameSessionRepository<RedisIndexedSessionRepository.RedisSession>, MessageListener {
 
@@ -424,7 +420,6 @@ public class RedisIndexedSessionRepository
 		String principalKey = getPrincipalKey(indexValue);
 		Set<Object> sessionIds = this.sessionRedisOperations.boundSetOps(principalKey).members();
 		Map<String, RedisSession> sessions = new HashMap<>(sessionIds.size());
-		log.info("sessionIds:" + sessionIds.size());
 		for (Object id : sessionIds) {
 			RedisSession session = findById((String) id);
 			if (session != null) {
@@ -473,9 +468,6 @@ public class RedisIndexedSessionRepository
 		MapSession loaded = new MapSession(id);
 		for (Map.Entry<Object, Object> entry : entries.entrySet()) {
 			String key = (String) entry.getKey();
-			log.info("key:" + key);
-			log.info("value:" + entry.getValue());
-
 			if (RedisSessionMapper.CREATION_TIME_KEY.equals(key)) {
 				loaded.setCreationTime(Instant.ofEpochMilli((long) entry.getValue()));
 			}
