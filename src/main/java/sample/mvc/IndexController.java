@@ -56,6 +56,7 @@ public class IndexController {
 	@PostMapping("/sessions/{sessionIdToDelete}")
 	public String removeSession(Principal principal, @PathVariable String sessionIdToDelete) {
 		Set<String> usersSessionIds = this.sessions.findByPrincipalName(principal.getName()).keySet();
+		log.info("key :" + principal.getName());
 		log.info("size :" + usersSessionIds.size());
 		if (usersSessionIds.contains(sessionIdToDelete)) {
 			this.sessions.deleteById(sessionIdToDelete);
