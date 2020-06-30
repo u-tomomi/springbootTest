@@ -435,6 +435,18 @@ public class RedisIndexedSessionRepository
 		}
 		return sessions;
 	}
+	
+	private void removeExpireSession(String principalKey) {
+		Set<Object> sessionIds = this.sessionRedisOperations.boundSetOps(principalKey).members();
+		log.info("sessionIds:" + sessionIds.size());
+		for (Object id : sessionIds) {
+			RedisSession session = findById((String) id);
+			if (session == null) {
+				this.sessionRedisOperations.boundSetOps(principalKey).remove(id);
+			}
+		}
+
+	}
 
 	/**
 	 * Gets the session.
@@ -817,6 +829,7 @@ public class RedisIndexedSessionRepository
 				this.originalPrincipalName = principal;
 				if (principal != null) {
 					String principalRedisKey = getPrincipalKey(principal);
+					removeExpireSession(principal);
 					RedisIndexedSessionRepository.this.sessionRedisOperations.boundSetOps(principalRedisKey)
 							.add(sessionId);
 				}
