@@ -459,6 +459,9 @@ public class RedisIndexedSessionRepository
 		MapSession loaded = new MapSession(id);
 		for (Map.Entry<Object, Object> entry : entries.entrySet()) {
 			String key = (String) entry.getKey();
+			log.info("key:" + key);
+			log.info("value:" + entry.getValue());
+
 			if (RedisSessionMapper.CREATION_TIME_KEY.equals(key)) {
 				loaded.setCreationTime(Instant.ofEpochMilli((long) entry.getValue()));
 			}
