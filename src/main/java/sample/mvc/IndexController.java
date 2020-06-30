@@ -29,12 +29,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * Controller for sending the user to the login view.
  *
  * @author Rob Winch
  *
  */
+@Slf4j
 @Controller
 public class IndexController {
 
@@ -53,6 +56,7 @@ public class IndexController {
 	@PostMapping("/sessions/{sessionIdToDelete}")
 	public String removeSession(Principal principal, @PathVariable String sessionIdToDelete) {
 		Set<String> usersSessionIds = this.sessions.findByPrincipalName(principal.getName()).keySet();
+		log.info("size :" + usersSessionIds.size());
 		if (usersSessionIds.contains(sessionIdToDelete)) {
 			this.sessions.deleteById(sessionIdToDelete);
 		}
